@@ -1,14 +1,26 @@
 // import Modal from "../Modal/Modal";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import s from "../MovieItem/MovieItem.module.css";
+import notFoundImage from "../../images/not-found-image.jpeg";
+// import { useEffect } from "react";
+// import MoviedFetch from "../../services/theMoviedDB";
+
+// const newMoviedFetch = new MoviedFetch();
 
 export function MovieItem({ poster, id, name }) {
   const imageUrl = "https://image.tmdb.org/t/p/w500";
+  const imagePoster = poster ? `${imageUrl}${poster}` : notFoundImage;
+
+  // useEffect(() => {
+  //   newMoviedFetch().searchMoviesId()
+  // }
+  // )
+
   return (
     <li className={s.galleryItem} key={id}>
+      <p>{`${name}`}</p>
       <img
-        // src={`https://image.tmdb.org/t/p/w500/${poster}`}
-        src={`${imageUrl}${poster}`}
+        src={imagePoster}
         alt={name}
         className={s.imageGalleryItem}
         //   onClick={onClick}
@@ -17,12 +29,14 @@ export function MovieItem({ poster, id, name }) {
   );
 }
 
-// ImageGalleryItem.propsTypes = {
-//   webformatURL: PropTypes.string,
-//   tags: PropTypes.string,
-//   largeImageURL: PropTypes.string,
-//   onClick: PropTypes.func,
-//   modalImg: PropTypes.string,
-//   showModal: PropTypes.bool,
-//   toggleModal: PropTypes.func,
-// };
+MovieItem.defaultProps = {
+  poster: notFoundImage,
+};
+
+MovieItem.propsTypes = {
+  poster: PropTypes.string,
+  id: PropTypes.number,
+  name: PropTypes.string,
+
+  // onClick: PropTypes.func,
+};
