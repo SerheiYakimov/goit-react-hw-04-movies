@@ -4,7 +4,7 @@ export default class MoviedFetch {
   constructor() {
     this._searchQuery = "";
     this._page = 1;
-    this._movieId = null;
+    // this._movieId = null;
     // this.perPage = 12;
   }
 
@@ -20,12 +20,12 @@ export default class MoviedFetch {
   set page(value) {
     return (this._page += value);
   }
-  get movieId() {
-    return this._movieId;
-  }
-  set movieId(id) {
-    return (this._movieId = id);
-  }
+  // get movieId() {
+  //   return this._movieId;
+  // }
+  // set movieId(id) {
+  //   return (this._movieId = id);
+  // }
 
   resetPage() {
     return (this._page = 1);
@@ -67,23 +67,23 @@ export default class MoviedFetch {
       .catch((error) => console.log(error));
   }
 
-  searchMoviesId() {
+  searchMoviesId(id) {
     const url = "https://api.themoviedb.org/3/";
     const apiKey = "7c2b2b3c6c797e2889781dee57c7a6ae";
-    const params = `movie/${this._movieId}?api_key=${apiKey}&language=en-US`;
+    const params = `movie/${id}?api_key=${apiKey}&language=en-US`;
     const fetch = url + params;
-    return axios
-      .get(fetch)
-      .then((result) => {
-        console.log(result);
-        return result.data;
-      })
-      .then((data) => {
-        console.log(data.results);
-        return data.results;
-      })
-      .catch((error) => console.log(error));
+    return (
+      axios
+        .get(fetch)
+        .then((result) => {
+          console.log(result);
+          return result.data;
+        })
+        // .then((data) => {
+        //   console.log(data.results);
+        //   return data.results;
+        // })
+        .catch((error) => console.log(error))
+    );
   }
 }
-
-// https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US - id search;

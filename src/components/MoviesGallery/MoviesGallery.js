@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import s from "../MoviesGallery/MoviesGallery.module.css";
 import { MovieItem } from "../MovieItem/MovieItem";
 import { Button } from "../Button/Button";
@@ -7,11 +7,12 @@ import "../../../node_modules/react-loader-spinner/dist/loader/css/react-spinner
 import Loader from "react-loader-spinner";
 import { toast } from "react-toastify";
 import MoviedFetch from "../../services/theMoviedDB";
+import { useLS } from "../hooks/LS";
 
 const newMoviedFetch = new MoviedFetch();
 
 export default function MoviesGallery({ value }) {
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useLS("movies", []);
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
 
@@ -33,7 +34,7 @@ export default function MoviesGallery({ value }) {
         console.log(movies);
       })
       .catch((error) => setError(error));
-  }, [value]);
+  }, [value, setMovies]);
 
   const onLoadMore = () => {
     newMoviedFetch.page = 1;
@@ -68,7 +69,6 @@ export default function MoviesGallery({ value }) {
         {movies.length > 0 &&
           movies.map(({ poster_path, id, original_title }) => (
             <MovieItem
-              // onClick={onClickModalImg}
               key={id}
               id={id}
               poster={poster_path}
@@ -81,13 +81,9 @@ export default function MoviesGallery({ value }) {
   );
 }
 
-// ImageGallery.propTypes = {
-//   id: PropTypes.number,
-//   webformatURL: PropTypes.string,
-//   tags: PropTypes.string,
-//   largeImageURL: PropTypes.string,
-//   modalImg: PropTypes.string,
-//   showModal: PropTypes.bool,
-//   toggleModal: PropTypes.func,
-//   onLoadMore: PropTypes.func,
-// };
+MoviesGallery.propTypes = {
+  id: PropTypes.number,
+  value: PropTypes.string,
+  original_title: PropTypes.string,
+  poster_path: PropTypes.string,
+};

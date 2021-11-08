@@ -2,7 +2,9 @@
 import PropTypes from "prop-types";
 import s from "../MovieItem/MovieItem.module.css";
 import notFoundImage from "../../images/not-found-image.jpeg";
-// import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
+
 // import MoviedFetch from "../../services/theMoviedDB";
 
 // const newMoviedFetch = new MoviedFetch();
@@ -10,6 +12,7 @@ import notFoundImage from "../../images/not-found-image.jpeg";
 export function MovieItem({ poster, id, name }) {
   const imageUrl = "https://image.tmdb.org/t/p/w500";
   const imagePoster = poster ? `${imageUrl}${poster}` : notFoundImage;
+  const location = useLocation();
 
   // useEffect(() => {
   //   newMoviedFetch().searchMoviesId()
@@ -18,13 +21,17 @@ export function MovieItem({ poster, id, name }) {
 
   return (
     <li className={s.galleryItem} key={id}>
-      <p>{`${name}`}</p>
-      <img
-        src={imagePoster}
-        alt={name}
-        className={s.imageGalleryItem}
-        //   onClick={onClick}
-      />
+      <h1>{`${name}`}</h1>
+      <Link
+        to={{
+          pathname: `/movies/${id}`,
+          state: {
+            from: { location, label: `back to movies` },
+          },
+        }}
+      >
+        <img src={imagePoster} alt={name} className={s.imageGalleryItem} />
+      </Link>
     </li>
   );
 }
