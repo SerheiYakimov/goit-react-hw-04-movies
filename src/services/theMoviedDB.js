@@ -4,8 +4,6 @@ export default class MoviedFetch {
   constructor() {
     this._searchQuery = "";
     this._page = 1;
-    // this._movieId = null;
-    // this.perPage = 12;
   }
 
   get searchQuery() {
@@ -20,12 +18,6 @@ export default class MoviedFetch {
   set page(value) {
     return (this._page += value);
   }
-  // get movieId() {
-  //   return this._movieId;
-  // }
-  // set movieId(id) {
-  //   return (this._movieId = id);
-  // }
 
   resetPage() {
     return (this._page = 1);
@@ -39,11 +31,11 @@ export default class MoviedFetch {
     return axios
       .get(fetch)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         return result.data;
       })
       .then((data) => {
-        console.log(data.results);
+        // console.log(data.results);
         return data.results;
       })
       .catch((error) => console.log(error));
@@ -57,11 +49,11 @@ export default class MoviedFetch {
     return axios
       .get(fetch)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         return result.data;
       })
       .then((data) => {
-        console.log(data.results);
+        // console.log(data.results);
         return data.results;
       })
       .catch((error) => console.log(error));
@@ -72,18 +64,44 @@ export default class MoviedFetch {
     const apiKey = "7c2b2b3c6c797e2889781dee57c7a6ae";
     const params = `movie/${id}?api_key=${apiKey}&language=en-US`;
     const fetch = url + params;
-    return (
-      axios
-        .get(fetch)
-        .then((result) => {
-          console.log(result);
-          return result.data;
-        })
-        // .then((data) => {
-        //   console.log(data.results);
-        //   return data.results;
-        // })
-        .catch((error) => console.log(error))
-    );
+    return axios
+      .get(fetch)
+      .then((result) => {
+        // console.log(result);
+        return result.data;
+      })
+      .catch((error) => console.log(error));
+  }
+
+  searchMoviesCast(id) {
+    const url = "https://api.themoviedb.org/3/";
+    const apiKey = "7c2b2b3c6c797e2889781dee57c7a6ae";
+    const params = `movie/${id}/credits?api_key=${apiKey}&language=en-US`;
+    const fetch = url + params;
+    return axios
+      .get(fetch)
+      .then((result) => {
+        console.log(result);
+        return result.data;
+      })
+      .then((data) => {
+        console.log(data.cast);
+        return data.cast;
+      })
+      .catch((error) => console.log(error));
+  }
+
+  searchMoviesReviews(id) {
+    const url = "https://api.themoviedb.org/3/";
+    const apiKey = "7c2b2b3c6c797e2889781dee57c7a6ae";
+    const params = `movie/${id}/reviews?api_key=${apiKey}&language=en-US`;
+    const fetch = url + params;
+    return axios
+      .get(fetch)
+      .then((result) => {
+        // console.log(result);
+        return result.data;
+      })
+      .catch((error) => console.log(error));
   }
 }
