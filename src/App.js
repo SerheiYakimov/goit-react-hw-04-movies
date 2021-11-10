@@ -16,7 +16,9 @@ const MoviesPage = lazy(() =>
   import("./pages/MoviePage/MoviesPage" /*webpackChunkName: 'Movies Page'*/)
 );
 const MovieDetailsPage = lazy(() =>
-  import("./pages/MovieDetailsPage" /* webpackChunkName: 'Movie Details Page'*/)
+  import(
+    "./pages/MovieDetailsPage/MovieDetailsPage" /* webpackChunkName: 'Movie Details Page'*/
+  )
 );
 const NotFoundPage = lazy(() =>
   import("./pages/NotFoundPage" /*webpackChunkName: 'Not Found Page' */)

@@ -1,0 +1,25 @@
+.container {
+  margin: 20px;
+}
+
+.title {
+  color: lightsalmon;
+  margin: 20px;
+  text-align: center;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.text {
+  color: lightslategray;
+  font-size: 14px;
+}
+
+.notext {
+  color: orangered;
+  font-size: 20px;
+}

@@ -2,9 +2,11 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { Route, useHistory, useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import MoviedFetch from "../services/theMoviedDB";
-import MovieDetails from "../components/MovieDetails/MovieDetails";
-import MovieCast from "../components/MovieCast/MovieCast";
+import MoviedFetch from "../../services/theMoviedDB";
+import MovieDetails from "../../components/MovieDetails/MovieDetails";
+import MovieCast from "../../components/MovieCast/MovieCast";
+import MovieReviews from "../../components/MovieReviews/MovieReviews";
+import s from "../MovieDetailsPage/MovieDetailsPage.module.css";
 
 const newMoviedFetch = new MoviedFetch();
 
@@ -14,6 +16,7 @@ export default function MovieDetailsPage() {
   const params = useParams();
   const [movie, setMovie] = useState(null);
   const [cast, setCast] = useState(null);
+  const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
     newMoviedFetch
@@ -36,21 +39,30 @@ export default function MovieDetailsPage() {
   }, [params.movieId]);
   // console.log('cast', cast);
 
+  useEffect(() => {
+    newMoviedFetch
+      .searchMoviesReviews(params.movieId)
+      .then(setReviews)
+      .catch((error) => alert(error));
+  }, [params.movieId]);
+  // console.log('reviews', reviews);
+
   const handleClick = () => {
     history.push(location?.state?.from?.location ?? "/movies");
   };
 
   return (
-    <>
-      <h1>Movie Details</h1>
-      <button type="button" onClick={handleClick}>
+    <div className={s.container}>
+      <h1 className={s.title}>Movie Details</h1>
+      <button type="button" className={s.button} onClick={handleClick}>
         {location?.state?.from?.label ?? "Go Back"}
       </button>
       {movie && <MovieDetails movie={movie} />}
-      <h2>Additional Information</h2>
-      <ul>
+      <h2 className={s.title}>Additional Information</h2>
+      <ul className={s.list}>
         <li>
           <Link
+            className={s.item}
             to={{
               pathname: `/movies/${params.movieId}/cast`,
               state: {
@@ -62,15 +74,28 @@ export default function MovieDetailsPage() {
             Cast
           </Link>
         </li>
-        <li></li>
+        <li>
+          <Link
+            className={s.item}
+            to={{
+              pathname: `/movies/${params.movieId}/reviews`,
+              state: {
+                from: history.location.state?.from ?? "/movies",
+                label: "back to movies from reviews",
+              },
+            }}
+          >
+            Reviews
+          </Link>
+        </li>
       </ul>
       <Route path="/movies/:movieId/cast">
         {cast && <MovieCast cast={cast} />}
       </Route>
-      {/* <Route path="/movies/:movieId/reviews">
-            <MovieReviews />
-        </Route> */}
-    </>
+      <Route path="/movies/:movieId/reviews">
+        {reviews && <MovieReviews reviews={reviews} />}
+      </Route>
+    </div>
   );
 }
 

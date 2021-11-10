@@ -1,0 +1,22 @@
+.article {
+  display: flex;
+}
+
+.content {
+  margin: 20px;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.title {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: lightsalmon;
+}
+
+.text {
+  color: lightslategray;
+  font-size: 14px;
+}

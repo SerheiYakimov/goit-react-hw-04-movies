@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import s from "../MovieCast/MovieCast.module.css";
 import notFoundImage from "../../images/not-found-image.jpeg";
 
 export default function MovieCast({ cast }) {
@@ -5,11 +7,12 @@ export default function MovieCast({ cast }) {
 
   return (
     <div>
-      <h3>Actors</h3>
-      <ul>
+      <h3 className={s.title}>Actors</h3>
+      <ul className={s.list}>
         {cast.map((actor) => (
           <li key={actor.id}>
             <img
+              className={s.image}
               src={
                 actor.profile_path
                   ? `${imageUrl}${actor.profile_path}`
@@ -17,10 +20,14 @@ export default function MovieCast({ cast }) {
               }
               alt={actor.original_name}
             />
-            <h3>{actor.original_name}</h3>
+            <p className={s.text}>{actor.original_name}</p>
           </li>
         ))}
       </ul>
     </div>
   );
 }
+
+MovieCast.propsTypes = {
+  cast: PropTypes.string,
+};

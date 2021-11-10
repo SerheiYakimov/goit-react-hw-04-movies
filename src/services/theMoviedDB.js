@@ -102,6 +102,10 @@ export default class MoviedFetch {
         // console.log(result);
         return result.data;
       })
+      .then((data) => {
+        console.log(data.results);
+        return data.results;
+      })
       .catch((error) => console.log(error));
   }
 }

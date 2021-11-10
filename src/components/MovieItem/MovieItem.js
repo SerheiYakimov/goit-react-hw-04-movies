@@ -11,7 +11,7 @@ export function MovieItem({ poster, id, name }) {
 
   return (
     <li className={s.galleryItem} key={id}>
-      <h1>{`${name}`}</h1>
+      <h1 className={s.title}>{`${name}`}</h1>
       <Link
         to={{
           pathname: `/movies/${id}`,
